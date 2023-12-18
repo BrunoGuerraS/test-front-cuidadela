@@ -24,7 +24,6 @@ export default function AllyDetail({ params }) {
     const getData = async () => {
       try {
         const res = await getCharacterById(id)
-        console.log("res", res); 
         setData(res)
         setLoading(!loading)
       } catch (error) {

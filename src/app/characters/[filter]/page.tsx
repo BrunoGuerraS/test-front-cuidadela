@@ -20,37 +20,17 @@ export default function Allies({ params }) {
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const router = useRouter();
-  const [hasMore, setHasMore] = useState<boolean>(true); 
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-
-
-  
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       if (!filterData[filter]) router.push("/dashboard");
-  //       const res = await getCharacters(filterData[filter], page);
-  //       console.log("res", res);
-  //       setData(res);
-  //       setLoading(!loading);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getData();
-  // }, [page]);
   const fetchData = async () => {
     try {
-      if (!filterData[filter]) router.push('/dashboard');
+      if (!filterData[filter]) router.push("/dashboard");
       const res = await getCharacters(filterData[filter], page);
-      console.log('res', res);
 
-      // Verificamos si la respuesta tiene datos
       if (res.length === 0) {
-        setHasMore(false); // Si no hay más datos, establecemos hasMore en false
+        setHasMore(false);
       }
 
-      // Si hay más datos, actualizamos el estado de los personajes
       setData((prevData) => [...prevData, ...res]);
       setLoading(!loading);
     } catch (error) {
@@ -64,9 +44,9 @@ export default function Allies({ params }) {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -74,7 +54,6 @@ export default function Allies({ params }) {
     fetchData();
   }, [page]);
 
-  
   if (!loading) return <Loading />;
   return (
     <>
@@ -103,7 +82,7 @@ export default function Allies({ params }) {
               <CardsInGroup key={index} data={character} filter={filter} />
             );
           })}
-          {loadingMore && <h2>Loading....</h2>}
+        {loadingMore && <h2>Loading....</h2>}
       </Grid>
     </>
   );
